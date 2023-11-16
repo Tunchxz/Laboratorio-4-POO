@@ -339,6 +339,13 @@ public class Principal {
         scanner.close();
     }
 
+    /**
+     * Verifica si una cadena puede ser convertida a un número entero válido.
+     *
+     * @param cadena La cadena a verificar.
+     * @return true si la cadena puede ser convertida a un número entero, false en
+     *         caso contrario.
+     */
     private static boolean esCadenaNumeroValida(String cadena) {
         try {
             Integer.parseInt(cadena);

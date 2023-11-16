@@ -10,6 +10,13 @@ public class Vuelos implements IReserva {
         usuarios = new ArrayList<>();
     }
 
+    /**
+     * Inicia sesión en el sistema.
+     *
+     * @param username El nombre de usuario.
+     * @param password La contraseña del usuario.
+     * @return El usuario que inició sesión.
+     */
     @Override
     public Usuario login(String username, String password) {
         for (Usuario usuario : usuarios) {
@@ -21,22 +28,46 @@ public class Vuelos implements IReserva {
         return null;
     }
 
+    /**
+     * Registra un nuevo usuario en el sistema.
+     *
+     * @param username El nombre de usuario.
+     * @param password La contraseña del usuario.
+     * @param tipo     El tipo de cuenta del usuario.
+     */
     @Override
     public void registroUsuario(String username, String password, String tipo) {
         Usuario nuevoUsuario = new Usuario(username, password, tipo);
         usuarios.add(nuevoUsuario);
     }
 
+    /**
+     * Cambia la contraseña del usuario.
+     *
+     * @param nuevaPassword La nueva contraseña del usuario.
+     */
     @Override
     public void cambiarPassword(String nuevaPassword) {
         usuarioActual.setPassword(nuevaPassword);
     }
 
+    /**
+     * Cambia el tipo de cuenta del usuario.
+     */
     @Override
     public void cambiarTipoUsuario() {
         usuarioActual.setTipoCuenta("VIP");
     }
 
+    /**
+     * Realiza una reserva para el usuario.
+     *
+     * @param fechaVuelo      La fecha del vuelo.
+     * @param tipoVuelo       El tipo de vuelo.
+     * @param cantidadBoletos La cantidad de boletos para el vuelo.
+     * @param aerolinea       La aerolínea del vuelo.
+     * @param username        El nombre de usuario.
+     */
     @Override
     public void reservacion(String fechaVuelo, boolean tipoVuelo, int cantidadBoletos, String aerolinea,
             String username) {
@@ -46,6 +77,15 @@ public class Vuelos implements IReserva {
         reservaActual = nuevaReserva;
     }
 
+    /**
+     * Confirma la reserva del usuario.
+     *
+     * @param numeroTarjeta   El número de tarjeta del cliente.
+     * @param cuotas          El número de cuotas para el pago del vuelo.
+     * @param claseVuelo      La clase del vuelo.
+     * @param numeroAsiento   El número de asiento del cliente.
+     * @param cantidadMaletas La cantidad de maletas del cliente.
+     */
     @Override
     public void confirmacion(String numeroTarjeta, int cuotas, String claseVuelo, String numeroAsiento,
             int cantidadMaletas) {
@@ -59,6 +99,11 @@ public class Vuelos implements IReserva {
         }
     }
 
+    /**
+     * Imprime el itinerario del usuario.
+     *
+     * @return El itinerario del usuario.
+     */
     @Override
     public String itinerario() {
         if (usuarioActual.getReservas().isEmpty()) {
@@ -74,6 +119,9 @@ public class Vuelos implements IReserva {
         return itinerario;
     }
 
+    /**
+     * Guarda los usuarios en en CSV.
+     */
     @Override
     public void guardarUsuario() {
         try (PrintWriter writer = new PrintWriter(new FileWriter("usuarios.csv"))) {
@@ -85,6 +133,9 @@ public class Vuelos implements IReserva {
         }
     }
 
+    /**
+     * Guarda las reservas de los usuarios en un CSV.
+     */
     @Override
     public void guardarReserva() {
         try (PrintWriter writer = new PrintWriter(new FileWriter("confirmaciones.csv"))) {
@@ -98,6 +149,9 @@ public class Vuelos implements IReserva {
         }
     }
 
+    /**
+     * Lee los usuarios guardados en el CSV.
+     */
     @Override
     public void leerUsuario() {
         try (BufferedReader reader = new BufferedReader(new FileReader("usuarios.csv"))) {
@@ -115,6 +169,9 @@ public class Vuelos implements IReserva {
         }
     }
 
+    /**
+     * Lee las reservas realizadas por los usuarios.
+     */
     @Override
     public void leerReserva() {
         try (BufferedReader reader = new BufferedReader(new FileReader("confirmaciones.csv"))) {
